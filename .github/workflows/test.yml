@@ -24,11 +24,5 @@ jobs:
         working-directory: ./functions
       - name: Start server and run tests
         run: |
-          npm start & npx wait-on http://localhost:3000
-          ./k6 run test.js
-      - name: Run local k6 test
-        uses: grafana/k6-action@v0.2.0
-        with:
-          filename: ./functions/k6tests/index.js
-
+          ./k6 run ./functions/k6tests/index.js
 
