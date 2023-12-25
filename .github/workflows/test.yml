@@ -25,4 +25,4 @@ jobs:
       - name: Start server and run tests
         run: |
           npm run k6
-
+        working-directory: ./functions
