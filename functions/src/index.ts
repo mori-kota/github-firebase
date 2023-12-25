@@ -17,8 +17,8 @@ export const testFunction = functions.https.onRequest((request: functions.Reques
     const res = {
       firstNumber: firstNumber,
       secondNumber: secondNumber,
-      operator: "-",
-      operationResult: firstNumber - secondNumber,
+      operator: "*",
+      operationResult: firstNumber * secondNumber,
     }
 
     response.status(200).send(res);

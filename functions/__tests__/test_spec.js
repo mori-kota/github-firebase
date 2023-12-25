@@ -15,7 +15,7 @@ describe("Firebase Functions Unit Tests", () => {
       .then(function (res) {
         console.log(res);
         json = JSON.parse(res.body);
-        expect(json.operationResult).toBe(18);
+        expect(json.operationResult).toBe(56);
       })
     );
   });
