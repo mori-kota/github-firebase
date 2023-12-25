@@ -20,9 +20,9 @@ jobs:
         run: npm ci
         working-directory: ./functions
       - name: test
-        run: npm run testci
+        run: npm run frisby
         working-directory: ./functions
       - name: Start server and run tests
         run: |
-          ./k6 run ./functions/k6tests/index.js
+          npm run k6
 
