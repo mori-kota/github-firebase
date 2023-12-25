@@ -1,5 +1,4 @@
 import * as functions from 'firebase-functions';
-import * as logger from "firebase-functions/logger";
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
