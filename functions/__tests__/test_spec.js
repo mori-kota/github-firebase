@@ -6,7 +6,7 @@ describe("Firebase Functions Unit Tests", () => {
       frisby.post(`http://127.0.0.1:5001/fir-pj777/us-central1/testFunction` ,{
         body:{
           data: {
-            firstNumber: 14,
+            firstNumber: 6,
             secondNumber: 4,      
           }
         },

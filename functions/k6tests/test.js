@@ -1,0 +1,33 @@
+import http from 'k6/http';
+import { sleep } from 'k6';
+
+export const options = {
+  duration: '5s',
+  vus: 2,
+  thresholds: {
+    http_req_failed: ['rate<0.01'], // http errors should be less than 1%
+    http_req_duration: ['p(95)<500'], // 95 percent of response times must be below 500ms
+  },
+};
+
+
+export default function () {
+  const data = {
+    data: {
+      firstNumber: 6,
+      secondNumber: 4,
+      },
+  };
+
+  const res = http.post(`https://us-central1-fir-pj777.cloudfunctions.net/testFunction`, JSON.stringify(data), {
+    timeout: 310000,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  console.log("Response", JSON.stringify(res.json(), null, 2));
+  // console.log("Response", res);
+  // console.log("Response", res.status);
+  // sleep(1)
+}
