@@ -9,7 +9,7 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "frisby": "npm run build && firebase emulators:exec --project=fir-pj777 'jest' --only functions",
-    "k6": "firebase emulators:exec --project=fir-pj777 './k6 run ./k6tests/index.js' --only functions --log-vebosity"
+    "k6": "firebase emulators:exec --project=fir-pj777 './k6 run ./k6tests/index.js' --only functions --log-verbosity SILENT"
   },
   "engines": {
     "node": "18"
