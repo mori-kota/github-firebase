@@ -26,7 +26,7 @@ export default function () {
     },
   });
 
-  console.log("Response", JSON.stringify(res.json(), null, 2));
+  // console.log("Response", JSON.stringify(res.json(), null, 2));
   // console.log("Response", res);
   // console.log("Response", res.status);
   // sleep(1)
