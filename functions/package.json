@@ -9,7 +9,7 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "test": "jest",
-    "emulator": "firebase emulators:exec --only functions"
+    "emulator": "firebase emulators:start --only functions"
   },
   "engines": {
     "node": "18"
