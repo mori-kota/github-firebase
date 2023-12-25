@@ -1,6 +1,8 @@
 name: Test
 on:
-  workflow_dispatch
+  push:
+    branches:
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,6 +19,6 @@ jobs:
         run: npm ci
         working-directory: ./functions
       - name: test
-        run: npm run testci
+        run: npm run test
         working-directory: ./functions
 
