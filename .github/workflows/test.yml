@@ -16,7 +16,7 @@ jobs:
       - name: install node_modules
         run: npm ci
         working-directory: ./functions
-      - name: test
+      - name: run emulator
         run: npm run emulator
         working-directory: ./functions
       - name: test
