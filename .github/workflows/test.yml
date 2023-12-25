@@ -16,13 +16,15 @@ jobs:
       - name: install node_modules
         run: npm ci
         working-directory: ./functions
-      - name: download and extract k6 release binaries
-        run:
-          curl -L https://github.com/grafana/k6/releases/download/v0.26.2/k6-v0.26.2-win64.zip -o k6.zip
-          7z.exe e k6.zip
-        shell: bash
+      - name: test
+        run: npm run emulator
         working-directory: ./functions
       - name: test
-        run: npm run testci
+        run: npm run test
         working-directory: ./functions
+      - name: Run local k6 test
+        uses: grafana/k6-action@v0.2.0
+        with:
+        filename: ./functions/k6tests/test.js
+
 
