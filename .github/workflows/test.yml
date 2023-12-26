@@ -21,9 +21,20 @@ jobs:
         run: npm ci
         working-directory: ./functions
       - name: test
+        id: frisby
         run: npm run frisby
         working-directory: ./functions
+      - name: Notify frisby
+        uses: 8398a7/action-slack@v3.8.0
+        with:
+          status: ${{ steps.frisby.outcome }}
+          fields: repo,message,commit,author,action,job,took,eventName,ref,workflow # 追加
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always()
       - name: Start server and run tests
+        id: k6
         run: |
           npm run k6
         working-directory: ./functions
