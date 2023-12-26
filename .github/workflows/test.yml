@@ -56,13 +56,8 @@ jobs:
         with:
           status: ${{ steps.k6.outcome }}
           author_name: k6 テストの実行結果
-          fields: workflow,job,commit,repo,ref,author,took
-          custom_payload: |
-            {
-              attachments: [{
-                text: `あいうえお`,
-              }]
-            }
+          fields: repo,message,commit,author,job,took,eventName # 追加
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always() # Pick up events even if the job fails or is canceled.
