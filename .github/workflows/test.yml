@@ -53,26 +53,16 @@ jobs:
         working-directory: ./functions
       - name: Notify k6
         uses: 8398a7/action-slack@v3.8.0
-        if: always()
         with:
-          status: custom
+          status: ${{ steps.k6.outcome }}
+          author_name: k6 テストの実行結果
           custom_payload: |
             {
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                title: "${{ github.repository }} #${{ github.event.id}}",
-                title_link: "${{ github.event.commits.url }}",
-                text: "${{ github.event.commits.message }} #${{ github.commits.id }}",
-                fields: [{
-                  title: "Status",
-                  value: "${{ job.status }}",
-                  short: true
-                }, {
-                  title: "Log",
-                  value: `<${process.env.GITHUB_SERVER_URL}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job_id }}|Checks URL>`,
-                  short: true
-                }]
+                text: `${process.env.AS_WORKFLOW}\n${process.env.AS_JOB} (${process.env.AS_COMMIT}) of ${process.env.AS_REPO}@${process.env.AS_REF} by ${process.env.AS_AUTHOR} ${{ job.status }} in ${process.env.AS_TOOK}`,
               }]
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always() # Pick up events even if the job fails or is canceled.
