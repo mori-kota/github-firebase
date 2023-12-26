@@ -1,10 +1,8 @@
 name: Deploy
 on:
-  workflow_run:
-    workflows: 
-      - test
-    types:
-      - completed
+  push:
+    branches:
+      - main
 jobs:
   deploy:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -27,3 +25,4 @@ jobs:
           args: deploy --only functions
         env:
           GCP_SA_KEY: ${{ secrets.GITHUBFOREFIREBASEKEY }}
+
