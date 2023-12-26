@@ -1,63 +1,63 @@
-# name: Test
-# on:
-#   push:
-#     branches:
-#       - main
-# jobs:
-#   frisbyTest:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout Repo
-#         uses: actions/checkout@v3
-#       - name: Setup node
-#         uses: actions/setup-node@v3
-#       - name: install firebase-tools
-#         run: npm install -g firebase-tools
-#       - name: install node_modules
-#         run: npm ci
-#         working-directory: ./functions
-#       - name: test
-#         id: frisby
-#         run: npm run frisby
-#         working-directory: ./functions
-#       - name: Notify frisby
-#         uses: 8398a7/action-slack@v3.8.0
-#         with:
-#           status: ${{ steps.frisby.outcome }}
-#           author_name: frisby テストの実行結果
-#           fields: repo,message,commit,author,job,took,eventName # 追加
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#         if: always()
-#   k6Test:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout Repo
-#         uses: actions/checkout@v3
-#       - name: Setup node
-#         uses: actions/setup-node@v3
-#       - name: Install k6
-#         run: |
-#           curl https://github.com/grafana/k6/releases/download/v0.47.0/k6-v0.47.0-linux-amd64.tar.gz -L | tar xvz --strip-components 1
-#         working-directory: ./functions
-#       - name: install firebase-tools
-#         run: npm install -g firebase-tools
-#       - name: install node_modules
-#         run: npm ci
-#         working-directory: ./functions
-#       - name: Start server and run tests
-#         id: k6
-#         run: |
-#           npm run k6
-#         working-directory: ./functions
-#       - name: Notify k6
-#         uses: 8398a7/action-slack@v3.8.0
-#         with:
-#           status: ${{ steps.k6.outcome }}
-#           author_name: k6 テストの実行結果
-#           fields: repo,message,commit,author,job,took,eventName # 追加
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-#         if: always() # Pick up events even if the job fails or is canceled.
+name: Test
+on:
+  push:
+    branches:
+      - main
+jobs:
+  frisbyTest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+      - name: install firebase-tools
+        run: npm install -g firebase-tools
+      - name: install node_modules
+        run: npm ci
+        working-directory: ./functions
+      - name: test
+        id: frisby
+        run: npm run frisby
+        working-directory: ./functions
+      # - name: Notify frisby
+      #   uses: 8398a7/action-slack@v3.8.0
+      #   with:
+      #     status: ${{ steps.frisby.outcome }}
+      #     author_name: frisby テストの実行結果
+      #     fields: repo,message,commit,author,job,took,eventName # 追加
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      #   if: always()
+  # k6Test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Repo
+  #       uses: actions/checkout@v3
+  #     - name: Setup node
+  #       uses: actions/setup-node@v3
+  #     - name: Install k6
+  #       run: |
+  #         curl https://github.com/grafana/k6/releases/download/v0.47.0/k6-v0.47.0-linux-amd64.tar.gz -L | tar xvz --strip-components 1
+  #       working-directory: ./functions
+  #     - name: install firebase-tools
+  #       run: npm install -g firebase-tools
+  #     - name: install node_modules
+  #       run: npm ci
+  #       working-directory: ./functions
+  #     - name: Start server and run tests
+  #       id: k6
+  #       run: |
+  #         npm run k6
+  #       working-directory: ./functions
+  #     - name: Notify k6
+  #       uses: 8398a7/action-slack@v3.8.0
+  #       with:
+  #         status: ${{ steps.k6.outcome }}
+  #         author_name: k6 テストの実行結果
+  #         fields: repo,message,commit,author,job,took,eventName # 追加
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  #       if: always() # Pick up events even if the job fails or is canceled.
