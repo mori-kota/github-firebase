@@ -60,7 +60,7 @@ jobs:
             {
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
-                title: "${{ github.repository }} #${{ github.event.number}}",
+                title: "${{ github.repository }} #${{ github.event.id}}",
                 title_link: "${{ github.event.commits.url }}",
                 text: "${{ github.event.commits.message }} #${{ github.commits.id }}",
                 fields: [{
@@ -69,7 +69,7 @@ jobs:
                   short: true
                 }, {
                   title: "Log",
-                  value: `<${process.env.GITHUB_SERVER_URL}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Checks URL>`,
+                  value: `<${process.env.GITHUB_SERVER_URL}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job_id }}|Checks URL>`,
                   short: true
                 }]
               }]
