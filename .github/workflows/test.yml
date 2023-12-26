@@ -4,17 +4,13 @@ on:
     branches:
       - main
 jobs:
-  deploy:
+  frisbyTest:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
       - name: Setup node
         uses: actions/setup-node@v3
-      - name: Install k6
-        run: |
-          curl https://github.com/grafana/k6/releases/download/v0.47.0/k6-v0.47.0-linux-amd64.tar.gz -L | tar xvz --strip-components 1
-        working-directory: ./functions
       - name: install firebase-tools
         run: npm install -g firebase-tools
       - name: install node_modules
@@ -34,6 +30,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
+  k6Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install k6
+        run: |
+          curl https://github.com/grafana/k6/releases/download/v0.47.0/k6-v0.47.0-linux-amd64.tar.gz -L | tar xvz --strip-components 1
+        working-directory: ./functions
       - name: Start server and run tests
         id: k6
         run: |
