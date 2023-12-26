@@ -53,9 +53,10 @@ jobs:
         working-directory: ./functions
       - name: Notify k6
         uses: 8398a7/action-slack@v3.8.0
+        if: always()
         with:
           status: custom
-          custom_payload: 
+          custom_payload: |
             {
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
