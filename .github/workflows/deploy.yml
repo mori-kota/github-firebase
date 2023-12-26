@@ -26,4 +26,4 @@ jobs:
         with:
           args: deploy --only functions
         env:
-          GCP_SA_KEY: ${{ secrets.FIREBASEKEY }}
+          GCP_SA_KEY: ${{ secrets.GITHUBFOREFIREBASEKEY }}
