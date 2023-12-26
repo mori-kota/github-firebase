@@ -54,10 +54,24 @@ jobs:
       - name: Notify k6
         uses: 8398a7/action-slack@v3.8.0
         with:
-          status: ${{ steps.k6.outcome }}
-          author_name: k6 テストの実行結果
-          fields: repo,message,commit,author,job,took,eventName # 追加
+          status: custom
+          custom_payload: 
+            {
+              attachments: [{
+                color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+                title: "${{ github.repository }} #${{ github.event.number}}",
+                title_link: "${{ github.event.commits.url }}",
+                text: "${{ github.event.commits.message }} #${{ github.commits.id }}",
+                fields: [{
+                  title: "Status",
+                  value: "${{ job.status }}",
+                  short: true
+                }, {
+                  title: "Log",
+                  value: `<${process.env.GITHUB_SERVER_URL}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Checks URL>`,
+                  short: true
+                }]
+              }]
+            }
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if: always()
