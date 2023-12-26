@@ -41,6 +41,9 @@ jobs:
         run: |
           curl https://github.com/grafana/k6/releases/download/v0.47.0/k6-v0.47.0-linux-amd64.tar.gz -L | tar xvz --strip-components 1
         working-directory: ./functions
+      - name: install node_modules
+        run: npm ci
+        working-directory: ./functions
       - name: Start server and run tests
         id: k6
         run: |
